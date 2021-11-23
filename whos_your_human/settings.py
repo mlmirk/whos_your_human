@@ -75,8 +75,8 @@ WSGI_APPLICATION = 'whos_your_human.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'whos_your_human',
     }
 }
 
