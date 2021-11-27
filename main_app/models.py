@@ -24,9 +24,12 @@ class Pet(models.Model):
     return reverse('pets_detail', kwargs={'pet_id': self.id})
 
 
+
+
 class Photo(models.Model):
   url = models.CharField(max_length=250)
   pet = models.OneToOneField(Pet, on_delete=models.CASCADE)
 
   def __str__(self):
     return f"Photo for pet_id: {self.pet_id} @{self.url}"
+

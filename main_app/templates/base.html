@@ -20,17 +20,18 @@
   <header>
     <div class="header-logo-container">
       <a href="{% url 'home' %}">
-        <img 
+        {% comment %} <img 
           src="{% static 'images/header-logo.svg' %}" 
           alt="The Cat Collector Logo"
-        >
+        > {% endcomment %}
       </a>
     </div>
     <nav>
       <ul>
         {% if user.is_authenticated%}
-          <li><a href="{% url 'cats_index' %}">All Pets</a></li>
-          <li><a href="{% url 'cats_create' %}">Create a Pet</a></li>
+          <li><a href="{% url 'pets_index' %}">All Pets</a></li>
+          {% comment "" %}
+          <li><a href="{% url 'pets_create' %}">Create a Pet</a></li> {% endcomment %}
           <li><a href="{% url 'about' %}">About</a></li>
           <li><a href="{% url 'logout' %}">Log out</a></li>
         {% else %}

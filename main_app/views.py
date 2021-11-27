@@ -19,10 +19,18 @@ class Home(LoginView):
 def about(request):
   return render(request, 'about.html')
 
+def pets_index(request):
+  pets=Pet.objects.filter(user=request.user)
+  return render(request, 'pets/index.html', {'pets':pets})
+
+def pets_detail(request, pet_id):
+  pet=Pet.objects.get(id=pet_id)
+  return render(request, 'pets/detail.html', {'pet' : pet})
 
 
 
-class CatCreate(CreateView):
+
+class PetCreate(CreateView):
   model = Pet
   fields = '__all__'
   
