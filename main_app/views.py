@@ -32,7 +32,7 @@ def pets_detail(request, pet_id):
 
 class PetCreate(CreateView):
   model = Pet
-  fields = '__all__'
+  fields = ['name', 'breed', 'parent1', "parent2", 'play_date', 'insta', 'email',"phone_number", 'description']
   
   # This inherited method is called when a
   # valid cat form is being submitted
@@ -61,3 +61,17 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'signup.html', context)
+
+
+
+
+  # name = models.CharField(max_length=100)
+  # breed = models.CharField(max_length=100)
+  # description = models.TextField(max_length=250)
+  # parent1 = models.CharField(max_length=100)
+  # parent2 = models.CharField(max_length=100)
+  # insta= models.CharField(max_length=100)
+  # phone_number = models.IntegerField()
+  # play_date=models.BooleanField()
+  # email= models.EmailField(max_length=254)
+  # user = models.ForeignKey(User, on_delete=models.CASCADE)

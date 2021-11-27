@@ -30,8 +30,7 @@
       <ul>
         {% if user.is_authenticated%}
           <li><a href="{% url 'pets_index' %}">All Pets</a></li>
-          {% comment "" %}
-          <li><a href="{% url 'pets_create' %}">Create a Pet</a></li> {% endcomment %}
+          <li><a href="{% url 'pet_create' %}">Create a Pet</a></li> 
           <li><a href="{% url 'about' %}">About</a></li>
           <li><a href="{% url 'logout' %}">Log out</a></li>
         {% else %}
