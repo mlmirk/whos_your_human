@@ -42,6 +42,15 @@ class PetCreate(CreateView):
     # Let the CreateView do its job as usual
     return super().form_valid(form)
 
+class PetUpdate(UpdateView):
+  model = Pet
+  # Let's disallow the renaming of a cat by excluding the name field!
+  fields = ['name', 'breed', 'parent1', "parent2", 'play_date', 'insta', 'email',"phone_number", 'description']
+
+class PetDelete(DeleteView):
+  model = Pet
+  success_url = '/pets/'
+
 
 def signup(request):
   error_message = ''

@@ -11,6 +11,7 @@
 
 {% block content %}
 
+
 <section class="cat-container">
   <div class="cat-img">
     <img 
@@ -29,6 +30,10 @@
       {% endif %}
     <p>{{pet.email}}</p>
     <p>{{ pet.description }}</p>
+      <div class="cat-actions">
+      <a href="{% url 'pet_update' pet.id %}" class="btn warn">Edit</a>
+      <a href="{% url 'pet_delete' pet.id %}" class="btn danger">Delete</a>
+    </div>
   </div>
 </section>
 
