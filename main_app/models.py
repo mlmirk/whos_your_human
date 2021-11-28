@@ -12,7 +12,6 @@ class Pet(models.Model):
   parent1 = models.CharField(max_length=100)
   parent2 = models.CharField(max_length=100)
   insta= models.CharField(max_length=100)
-  phone_number = models.IntegerField()
   play_date=models.BooleanField()
   email= models.EmailField(max_length=254)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
