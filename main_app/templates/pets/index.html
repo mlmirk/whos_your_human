@@ -1,6 +1,7 @@
-{% extends 'base.html' %}
-{% load static %}
 
+{% extends 'base.html' %}
+
+{% load static %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/pet-index.css' %}"/>
 {% endblock %}
@@ -21,10 +22,18 @@
     <a href="{% url 'pets_detail' p.id %}">
       <div class="card-content">
         <div class="card-img-container">
+        {% if p.photo.url %}
+        <img 
+        src="{{p.photo.url}}" 
+        alt="A photo of {{pet.name}}"
+        class="usr-img"
+      >
+      {% else %}
           <img 
             src="{% static 'images/strategic.png' %}" 
             alt="default Logo"
           >
+          {% endif %}
         </div>
         <h2 class="card-title">{{ p.name }}</h2>
             <ul>

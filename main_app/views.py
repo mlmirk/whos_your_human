@@ -8,9 +8,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Pet, Photo
-#from .forms import FeedingForm
-#import uuid
-#import boto3
+import uuid
+import boto3
+#const variables
+S3_BASE_URL = 'https://s3.us-west-2.amazonaws.com/'
+BUCKET = 'whoseyourhuman'
 
 # Create your views here.
 class Home(LoginView):
@@ -63,7 +65,7 @@ def signup(request):
       user = form.save()
       # This is how we log a user in
       login(request, user)
-      return redirect('cats_index')
+      return redirect('pets_index')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
@@ -72,7 +74,30 @@ def signup(request):
   return render(request, 'signup.html', context)
 
 
-
+def add_photo(request, pet_id):
+  # photo-file will be the "name" attribute on the <input type="file">
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+    s3 = boto3.client('s3')
+    # need a unique "key" for S3 / needs image file extension too
+		# uuid.uuid4().hex generates a random hexadecimal Universally Unique Identifier
+    # Add on the file extension using photo_file.name[photo_file.name.rfind('.'):]
+    key = uuid.uuid4().hex + photo_file.name[photo_file.name.rfind('.'):]
+    # just in case something goes wrong
+    try:
+      s3.upload_fileobj(photo_file, BUCKET, key)
+      # build the full url string
+      url = f"{S3_BASE_URL}{BUCKET}/{key}"
+      # we can assign to cat_id or cat (if you have a cat object)
+      photo = Photo(url=url, pet_id=pet_id)
+      # Remove old photo if it exists
+      pet_photo = Photo.objects.filter(pet_id=pet_id)
+      if pet_photo.first():
+        pet_photo.first().delete()
+      photo.save()
+    except Exception as err:
+      print('An error occurred uploading file to S3: %s' % err)
+  return redirect('pets_detail', pet_id=pet_id)
 
   # name = models.CharField(max_length=100)
   # breed = models.CharField(max_length=100)
