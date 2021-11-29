@@ -18,7 +18,7 @@ BUCKET = 'whoseyourhuman'
 class Home(LoginView):
   template_name = "home.html"
 
-@login_required
+
 def about(request):
   return render(request, 'about.html')
 
