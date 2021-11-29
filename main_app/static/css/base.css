@@ -31,7 +31,7 @@ body {
   --nav-bg-ff: rgba(255, 110, 48, .9);
   --borders: rgb(3, 33, 80) solid 2px;
   --text-color: rgb(17, 20, 17);
-  --link-hover-color: rgb(225, 61, 31);
+  --link-hover-color: white;
   --button-bg: rgb(245, 245, 245);
   --button-bg-hover: rgb(226, 226, 226);
   --submit: rgb(26, 128, 0);
@@ -97,7 +97,12 @@ nav li {
   margin: auto;
   padding: 10px 20px 0;
   max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
+
 
 .page-header {
   display: flex;
@@ -156,6 +161,18 @@ nav li {
 .page-header img:first-of-type {
   margin-left: 20px;
 }
+#logo-top{
+  width: auto;
+  height:auto;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.about{
+  margin: 15px;
+  font-size: larger;
+}
 
 @media only screen and (min-width: 768px) {
   header {
@@ -180,6 +197,7 @@ nav li {
   /* visual fix to help align logo */
   .header-logo-container {
     padding-top: 3px;
+    margin-left: 50px;
   }
 
   nav {
@@ -203,6 +221,12 @@ nav li {
   .page-header img {
     height: 50px;
     margin-left:20px;
+  }
+  #logo-top{
+    justify-content: center;
+    align-items: center;
+    width: auto;
+  height:auto;
   }
   
   .page-header img:first-of-type {
@@ -235,7 +259,7 @@ nav li {
   nav,
   .header-logo-container {
     margin: 0;
-    background: var(--nav-bg-ff);
+    background: var(--nav-bg);
     border: var(--borders);
     border-radius: 18px;
   }
@@ -244,11 +268,17 @@ nav li {
     margin-left: auto;
   }
 
+  #logo-top{
+    justify-content: center;
+    align-items: center;
+    width: 256px;
+  height:35px;
+  }
   .header-logo-container {
     /* visual fix to help align logo */
     padding-top: 6px;
     width: 256px;
-    height: 35px;
+    height: 55px;
   }
 
   @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
