@@ -26,7 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG') == 'True'
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
 ALLOWED_HOSTS = []
 
@@ -133,3 +134,7 @@ LOGIN_REDIRECT_URL = 'pets_index'
 LOGOUT_REDIRECT_URL = 'home'
 
 LOGIN_URL = "home"
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())

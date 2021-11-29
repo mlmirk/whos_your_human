@@ -7,13 +7,13 @@ from django.contrib.auth.models import User
 
 class Pet(models.Model):
   name = models.CharField(max_length=100)
-  breed = models.CharField(max_length=100)
-  description = models.TextField(max_length=250)
+  breed = models.CharField(max_length=100,  null=True, blank=True )
+  description = models.TextField(max_length=250,  null=True, blank=True)
   parent1 = models.CharField(max_length=100)
-  parent2 = models.CharField(max_length=100)
-  insta= models.CharField(max_length=100)
-  play_date=models.BooleanField()
-  email= models.EmailField(max_length=254)
+  parent2 = models.CharField(max_length=100,  null=True, blank=True)
+  insta= models.CharField(max_length=100,  null=True, blank=True)
+  play_date=models.BooleanField(null=True, blank=True)
+  email= models.EmailField(max_length=254,  null=True, blank=True)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   
   def __str__(self):

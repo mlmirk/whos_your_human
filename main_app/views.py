@@ -18,13 +18,16 @@ BUCKET = 'whoseyourhuman'
 class Home(LoginView):
   template_name = "home.html"
 
+@login_required
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def pets_index(request):
   pets=Pet.objects.filter(user=request.user)
   return render(request, 'pets/index.html', {'pets':pets})
 
+@login_required
 def pets_detail(request, pet_id):
   pet=Pet.objects.get(id=pet_id)
   return render(request, 'pets/detail.html', {'pet' : pet})
@@ -32,9 +35,9 @@ def pets_detail(request, pet_id):
 
 
 
-class PetCreate(CreateView):
+class PetCreate(LoginRequiredMixin, CreateView):
   model = Pet
-  fields = ['name', 'breed', 'parent1', "parent2", 'play_date', 'insta', 'email',"phone_number", 'description']
+  fields = ['name', 'breed', 'parent1', "parent2", 'insta', 'email', 'description']
   
   # This inherited method is called when a
   # valid cat form is being submitted
@@ -44,12 +47,12 @@ class PetCreate(CreateView):
     # Let the CreateView do its job as usual
     return super().form_valid(form)
 
-class PetUpdate(UpdateView):
+class PetUpdate(LoginRequiredMixin, UpdateView):
   model = Pet
   # Let's disallow the renaming of a cat by excluding the name field!
-  fields = ['name', 'breed', 'parent1', "parent2", 'play_date', 'insta', 'email', 'description']
+  fields = ['name', 'breed', 'parent1', "parent2", 'insta', 'email', 'description']
 
-class PetDelete(DeleteView):
+class PetDelete(LoginRequiredMixin, DeleteView):
   model = Pet
   success_url = '/pets/'
 
@@ -73,7 +76,7 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'signup.html', context)
 
-
+@login_required
 def add_photo(request, pet_id):
   # photo-file will be the "name" attribute on the <input type="file">
   photo_file = request.FILES.get('photo-file', None)
@@ -98,14 +101,3 @@ def add_photo(request, pet_id):
     except Exception as err:
       print('An error occurred uploading file to S3: %s' % err)
   return redirect('pets_detail', pet_id=pet_id)
-
-  # name = models.CharField(max_length=100)
-  # breed = models.CharField(max_length=100)
-  # description = models.TextField(max_length=250)
-  # parent1 = models.CharField(max_length=100)
-  # parent2 = models.CharField(max_length=100)
-  # insta= models.CharField(max_length=100)
-  # phone_number = models.IntegerField()
-  # play_date=models.BooleanField()
-  # email= models.EmailField(max_length=254)
-  # user = models.ForeignKey(User, on_delete=models.CASCADE)
