@@ -23,9 +23,11 @@
         class="usr-img"
       >
     {% else %}
+    
       <img 
         src="{% static 'images/strategic.png' %}" 
         alt="Logo image"
+        class="pet-img"
       >
     {% endif %}
   </div>
@@ -33,10 +35,11 @@
     <h1>{{ pet.name }}</h1>
     <p>{{pet.parent1}}</p>
     <p>{{pet.parent2}}</p>
+      {% if pet.insta %}
     <button value="{{pet.insta}}" id="instagram_id">
     <img  class="logo-insta"  src="{% static "images/logo-ig.png" %}" > 
     </button>
-    
+    {% endif %}
     <p>{{pet.email}}</p>
     <p>{{ pet.description }}</p>
       <div class="pet-actions">
