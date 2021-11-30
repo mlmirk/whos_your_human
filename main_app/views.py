@@ -87,10 +87,10 @@ def add_photo(request, pet_id):
       url = f"{S3_BASE_URL}{BUCKET}/{key}"
       photo = Photo(url=url, pet_id=pet_id)
       # Remove old photo if it exists
-      pet_photo = Photo.objects.filter(cat_id=pet_id)
+      pet_photo = Photo.objects.filter(pet_id=pet_id)
       if pet_photo.first():
         pet_photo.first().delete()
       photo.save()
     except Exception as err:
       print('An error occurred uploading file to S3: %s' % err)
-  return redirect('cats_detail', pet_id=pet_id)
+  return redirect('pets_detail', pet_id=pet_id)
