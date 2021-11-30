@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/about.css' %}"/>
+{% endblock %}
 
 
 {% block content %}
@@ -8,7 +11,7 @@
   <h1>About Whose Your Human</h1>
   <hr>
   <p>
-This is the web app version of Who's Your human. Who hasn't had the issue of walking down the street and recognizing a pet in the neighborhood and recognizing a dog but not remember their owners name? Well, you’re in luck. Input the the dogs info and a photo and now you have the info stored and ready to go whenever you need it! 
+This is the web app version of Whose Your Human. Who hasn't had the issue of walking down the street and recognizing a pet in the neighborhood and recognizing a dog but not remember their owners name? Well, you’re in luck. Input the the dogs info and a photo and now you have the info stored and ready to go whenever you need it! 
   </p>
-  </>
+  </div>
 {% endblock %}

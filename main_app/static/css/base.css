@@ -45,6 +45,10 @@ body {
   --font-l: 1.8rem;
   --font-reg: 1.6rem;
   --card-border-radius: 6px;
+  
+  background: url('../images/main-backround.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  
 }
 
 header {
