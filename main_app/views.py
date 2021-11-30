@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
-from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
@@ -39,17 +38,12 @@ class PetCreate(LoginRequiredMixin, CreateView):
   model = Pet
   fields = ['name', 'breed', 'parent1', "parent2", 'insta', 'email', 'description']
   
-  # This inherited method is called when a
-  # valid cat form is being submitted
   def form_valid(self, form):
-    # Assign the logged in user (self.request.user)
-    form.instance.user = self.request.user  # form.instance is the cat
-    # Let the CreateView do its job as usual
+    form.instance.user = self.request.user  
     return super().form_valid(form)
 
 class PetUpdate(LoginRequiredMixin, UpdateView):
   model = Pet
-  # Let's disallow the renaming of a cat by excluding the name field!
   fields = ['name', 'breed', 'parent1', "parent2", 'insta', 'email', 'description']
 
 class PetDelete(LoginRequiredMixin, DeleteView):
@@ -78,7 +72,7 @@ def signup(request):
 
 @login_required
 def add_photo(request, pet_id):
-  # photo-file will be the "name" attribute on the <input type="file">
+
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
     s3 = boto3.client('s3')
