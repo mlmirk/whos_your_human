@@ -72,7 +72,7 @@ def signup(request):
 
 @login_required
 def add_photo(request, pet_id):
-
+  # photo-file will be the "name" attribute on the <input type="file">
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
     s3 = boto3.client('s3')
@@ -85,13 +85,12 @@ def add_photo(request, pet_id):
       s3.upload_fileobj(photo_file, BUCKET, key)
       # build the full url string
       url = f"{S3_BASE_URL}{BUCKET}/{key}"
-      # we can assign to cat_id or cat (if you have a cat object)
       photo = Photo(url=url, pet_id=pet_id)
       # Remove old photo if it exists
-      pet_photo = Photo.objects.filter(pet_id=pet_id)
+      pet_photo = Photo.objects.filter(cat_id=pet_id)
       if pet_photo.first():
         pet_photo.first().delete()
       photo.save()
     except Exception as err:
       print('An error occurred uploading file to S3: %s' % err)
-  return redirect('pets_detail', pet_id=pet_id)
+  return redirect('cats_detail', pet_id=pet_id)
