@@ -9,9 +9,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Pet, Photo
 import uuid
 import boto3
+
 #const variables
-S3_BASE_URL = 'https://s3.us-west-2.amazonaws.com/'
-BUCKET = 'whoseyourhuman'
+S3_BASE_URL='https://s3.us-west-2.amazonaws.com/'
+BUCKET='whoseyourhuman'
 
 # Create your views here.
 class Home(LoginView):
@@ -70,6 +71,7 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'signup.html', context)
 
+
 @login_required
 def add_photo(request, pet_id):
   # photo-file will be the "name" attribute on the <input type="file">
@@ -85,6 +87,7 @@ def add_photo(request, pet_id):
       s3.upload_fileobj(photo_file, BUCKET, key)
       # build the full url string
       url = f"{S3_BASE_URL}{BUCKET}/{key}"
+      # we can assign to cat_id or cat (if you have a cat object)
       photo = Photo(url=url, pet_id=pet_id)
       # Remove old photo if it exists
       pet_photo = Photo.objects.filter(pet_id=pet_id)
